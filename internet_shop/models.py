@@ -1,7 +1,7 @@
 from django.db import models
 
 
-class Milk(models.Model):
+class BaseProductModel(models.Model):
     price = models.FloatField()
     image = models.ImageField(upload_to="%Y/%m/%d")
     title = models.CharField(max_length=255)
@@ -11,98 +11,57 @@ class Milk(models.Model):
     def __str__(self):
         return self.title
 
-
-class Bread(models.Model):
-    price = models.FloatField()
-    image = models.ImageField(upload_to="%Y/%m/%d")
-    title = models.CharField(max_length=255)
-    сreated = models.DateField(auto_now_add=True)
-    updated = models.DateField(auto_now=True)
+    class Meta:
+        abstract = True
 
 
-class FruitVegetables(models.Model):
-    price = models.FloatField()
-    image = models.ImageField(upload_to="%Y/%m/%d")
-    title = models.CharField(max_length=255)
-    сreated = models.DateField(auto_now_add=True)
-    updated = models.DateField(auto_now=True)
+class Milk(BaseProductModel):
+    pass
 
 
-class FrozenProduct(models.Model):
-    price = models.FloatField()
-    image = models.ImageField(upload_to="%Y/%m/%d")
-    title = models.CharField(max_length=255)
-    сreated = models.DateField(auto_now_add=True)
-    updated = models.DateField(auto_now=True)
+class Bread(BaseProductModel):
+    pass
 
 
-class Beverage(models.Model):
-    price = models.FloatField()
-    image = models.ImageField(upload_to="%Y/%m/%d")
-    title = models.CharField(max_length=255)
-    сreated = models.DateField(auto_now_add=True)
-    updated = models.DateField(auto_now=True)
+class FruitVegetables(BaseProductModel):
+    pass
 
 
-class Confectionary(models.Model):
-    price = models.FloatField()
-    image = models.ImageField(upload_to="%Y/%m/%d")
-    title = models.CharField(max_length=255)
-    сreated = models.DateField(auto_now_add=True)
-    updated = models.DateField(auto_now=True)
+class FrozenProduct(BaseProductModel):
+    pass
 
 
-class TeaCoffe(models.Model):
-    price = models.FloatField()
-    image = models.ImageField(upload_to="%Y/%m/%d")
-    title = models.CharField(max_length=255)
-    сreated = models.DateField(auto_now_add=True)
-    updated = models.DateField(auto_now=True)
+class Beverage(BaseProductModel):
+    pass
 
 
-class Balakleya(models.Model):
-    price = models.FloatField()
-    image = models.ImageField(upload_to="%Y/%m/%d")
-    title = models.CharField(max_length=255)
-    сreated = models.DateField(auto_now_add=True)
-    updated = models.DateField(auto_now=True)
+class Confectionary(BaseProductModel):
+    pass
 
 
-class HealthyFood(models.Model):
-    price = models.FloatField()
-    image = models.ImageField(upload_to="%Y/%m/%d")
-    title = models.CharField(max_length=255)
-    сreated = models.DateField(auto_now_add=True)
-    updated = models.DateField(auto_now=True)
+class TeaCoffe(BaseProductModel):
+    pass
 
 
-class PetProduct(models.Model):
-    price = models.FloatField()
-    image = models.ImageField(upload_to="%Y/%m/%d")
-    title = models.CharField(max_length=255)
-    сreated = models.DateField(auto_now_add=True)
-    updated = models.DateField(auto_now=True)
+class Balakleya(BaseProductModel):
+    pass
 
 
-class BabyFood(models.Model):
-    price = models.FloatField()
-    image = models.ImageField(upload_to="%Y/%m/%d")
-    title = models.CharField(max_length=255)
-    сreated = models.DateField(auto_now_add=True)
-    updated = models.DateField(auto_now=True)
+class HealthyFood(BaseProductModel):
+    pass
 
 
-class Meat(models.Model):
-    price = models.FloatField()
-    image = models.ImageField(upload_to="%Y%m%d")
-    title = models.CharField(max_length=255)
-    сreated = models.DateField(auto_now_add=True)
-    updated = models.DateField(auto_now=True)
+class PetProduct(BaseProductModel):
+    pass
 
 
-class NonFoodProduct(models.Model):
-    price = models.FloatField()
-    image = models.ImageField(upload_to="%Y/%m/%d")
-    title = models.CharField(max_length=255)
-    сreated = models.DateField(auto_now_add=True)
-    updated = models.DateField(auto_now=True)
+class BabyFood(BaseProductModel):
+    pass
+
+
+class Meat(BaseProductModel):
+    pass
+
+
+class NonFoodProduct(BaseProductModel):
+    pass

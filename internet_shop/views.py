@@ -4,71 +4,83 @@ from .serializers import *
 from rest_framework.response import Response
 from rest_framework.views import APIView
 
-class ListProductsMilks(APIView):
+
+class BaseListView(APIView):
+    model = None
+    serializer_class = None
+
     def get(self, request, *args, **kwargs):
-        milks = Milk.objects.all()
-        serialized_milks = ProductsMilk(milks, many=True, context={'request': request}).data
+        products = self.model.objects.all()
+        serialized_products = self.serializer_class(
+            products, many=True, context={"request": request}
+        ).data
+        grouped_products = [
+            serialized_products[i : i + 3]
+            for i in range(0, len(serialized_products), 3)
+        ]
 
-        grouped_milks = [serialized_milks[i:i+3] for i in range(0, len(serialized_milks), 3)]
+        return Response(grouped_products)
 
-        return Response(grouped_milks)
+class ListProductsMilks(BaseListView):
+    model = Milk
+    serializer_class = ProductsMilk
 
 
-class ListProductsBread(generics.ListAPIView):
-    queryset = Bread.objects.all()
+class ListProductsBread(BaseListView):
+    queryset = Bread
     serializer_class = ProductsBread
 
 
-class ListProductsFruitsAndVegetables(generics.ListAPIView):
-    queryset = FruitVegetables.objects.all()
+class ListProductsFruitsAndVegetables(BaseListView):
+    queryset = FruitVegetables
     serializer_class = ProductsFruitsAndVegetables
 
 
-class ListProductsFrozen(generics.ListAPIView):
-    queryset = FrozenProduct.objects.all()
+class ListProductsFrozen(BaseListView):
+    queryset = FrozenProduct
     serializer_class = ProductsFrozenProducts
 
 
-class ListProductsBeverages(generics.ListAPIView):
-    queryset = Beverage.objects.all()
+class ListProductsBeverages(BaseListView):
+    queryset = Beverage
     serializer_class = ProductsBeverages
 
 
-class ListProductsConfectionary(generics.ListAPIView):
-    queryset = Confectionary.objects.all()
+class ListProductsConfectionary(BaseListView):
+    queryset = Confectionary
     serializer_class = ProductsConfectionaryProducts
 
 
-class ListProductsTeaAndCoffee(generics.ListAPIView):
-    queryset = TeaCoffe.objects.all()
+class ListProductsTeaAndCoffee(BaseListView):
+    queryset = TeaCoffe
     serializer_class = ProductsTeaAndCoffee
 
 
-class ListProductsBalakleya(generics.ListAPIView):
-    queryset = Balakleya.objects.all()
+class ListProductsBalakleya(BaseListView):
+    queryset = Balakleya
     serializer_class = ProductsBalakleya
 
 
-class ListProductsHealthyFoods(generics.ListAPIView):
-    queryset = HealthyFood.objects.all()
+class ListProductsHealthyFoods(BaseListView):
+    queryset = HealthyFood
     serializer_class = ProductsHealthyFoods
 
 
-class ListProductsPet(generics.ListAPIView):
-    queryset = PetProduct.objects.all()
+class ListProductsPet(BaseListView):
+    queryset = PetProduct
     serializer_class = ProductsPetProducts
 
 
-class ListProductsBabyFood(generics.ListAPIView):
-    queryset = BabyFood.objects.all()
+class ListProductsBabyFood(BaseListView):
+    queryset = BabyFood
     serializer_class = ProductsBabyFood
 
 
-class ListProductsMeatPoultrySausage(generics.ListAPIView):
-    queryset = Meat.objects.all()
+class ListProductsMeatPoultrySausage(BaseListView):
+    queryset = Meat
     serializer_class = ProductsMeatPoultrySausage
 
 
-class ListProductsNonFood(generics.ListAPIView):
-    queryset = NonFoodProduct.objects.all()
+class ListProductsNonFood(BaseListView):
+    queryset = NonFoodProduct
     serializer_class = NonFoodProduct
